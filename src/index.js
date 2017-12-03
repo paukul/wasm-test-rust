@@ -74,7 +74,7 @@ fetchAndInstantiate('./src/main.wasm', {}).then(mod => {
   Module.alloc = mod.exports.alloc;
   Module.dealloc = mod.exports.dealloc;
   Module.dealloc_str = mod.exports.dealloc_str;
-  Module.memory = new Uint8Array(mod.exports.memory.buffer);
+  Module.memory = mod.exports.memory;
   Module.hello = mod.exports.hello;
 
   console.log('asdfasdfasdf');
