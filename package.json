@@ -1,0 +1,16 @@
+{
+  "name": "wasm-test",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Pascal Friederich <paukul@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "http-server": "^0.10.0",
+    "wasm-loader": "^1.1.0",
+    "webpack": "^3.9.1"
+  },
+  "scripts": {
+    "compile": "webpack --progress",
+    "serve": "http-server"
+  }
+}
