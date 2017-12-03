@@ -10,7 +10,7 @@
     "webpack": "^3.9.1"
   },
   "scripts": {
-    "compile": "rustc --target wasm32-unknown-unknown src/main.rs -o src/main.wasm; webpack --progress",
-    "serve": "http-server"
+    "compile": "rustc +nightly-2017-11-30 --target wasm32-unknown-unknown -O --crate-type=cdylib src/main.rs -o src/main.wasm; webpack --progress",
+    "serve": "http-server -c-1"
   }
 }

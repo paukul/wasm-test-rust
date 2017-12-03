@@ -1,8 +1,36 @@
-fn main() {
-    println!("Hello, world!");
+use std::mem;
+use std::ffi::{CString, CStr};
+use std::os::raw::{c_char, c_void};
+
+#[no_mangle]
+pub extern "C" fn alloc(size: usize) -> *mut c_void {
+    let mut buf = Vec::with_capacity(size);
+    let ptr = buf.as_mut_ptr();
+    mem::forget(buf);
+    return ptr as *mut c_void;
 }
 
 #[no_mangle]
-pub fn add(a: i32, b: i32) -> i32 {
-    a + b
+pub extern "C" fn dealloc(ptr: *mut c_void, cap: usize) {
+    unsafe  {
+        let _buf = Vec::from_raw_parts(ptr, 0, cap);
+    }
+}
+
+#[no_mangle]
+pub extern "C" fn dealloc_str(ptr: *mut c_char) {
+    unsafe {
+        let _ = CString::from_raw(ptr);
+    }
+}
+
+#[no_mangle]
+pub extern "C" fn hello(data: *mut c_char) -> *mut c_char {
+    unsafe {
+        let data = CStr::from_ptr(data);
+
+        let out = format!("Hello {}", data.to_string_lossy());
+        let s = CString::new(out).unwrap();
+        s.into_raw()
+    }
 }
